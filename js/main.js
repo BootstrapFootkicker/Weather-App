@@ -1,6 +1,11 @@
 const api_key = "63e142d5a9384ca298c195453232209";
 const citySearch = document.querySelector(".city-search");
 const searchBtn = document.querySelector(".search-button");
+const weatherContainer = document.querySelector(".weather-container");
+const currentDateData = document.querySelector(".current-date-data");
+const currentConditionData = document.querySelector(".current-condition-data");
+const currentHumidityData = document.querySelector(".current-humidity-data");
+const currentTempData = document.querySelector(".current-temp-data");
 
 async function getWeatherData(location) {
   const response = await fetch(
@@ -66,11 +71,15 @@ async function storeWeatherData(location) {
   };
   return weatherData;
 }
-//console.log(getWeather("new york"));
+
 searchBtn.addEventListener("click", () => {
   let location = citySearch.value;
   storeWeatherData(location).then((data) => {
-    console.log(data["locationData"].country);
-    console.log(data);
+    currentDateData.innerHTML = data["weatherDataCurrent"].date;
+    currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
+    currentTempData.innerHTML = data["weatherDataCurrent"].temp;
+    currentHumidityData.innerHTML = data["weatherDataCurrent"].humidity;
+    //console.log(data["locationData"].country);
+    //console.log(data);
   });
 });
