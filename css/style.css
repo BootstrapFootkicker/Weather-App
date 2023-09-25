@@ -24,7 +24,16 @@ body {
 .current-condition-container,
 .current-date-container,
 .current-humidity-container,
-.current-temp-container {
+.current-temp-container,
+
+.forecast-condition-container,
+.forecast-humidity-container,
+.forecast-temp-low-container,
+.forecast-temp-high-container,
+.forecast-date-container,
+
+.location-container
+{
   display: flex;
   gap: 5px;
 }

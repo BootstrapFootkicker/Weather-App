@@ -6,6 +6,8 @@ const currentDateData = document.querySelector(".current-date-data");
 const currentConditionData = document.querySelector(".current-condition-data");
 const currentHumidityData = document.querySelector(".current-humidity-data");
 const currentTempData = document.querySelector(".current-temp-data");
+const locationContainer = document.querySelector(".location-container");
+
 const forecastContainers = [
   (weatherForecastContainer = document.querySelector(
     "#weather-container-forecast-1",
@@ -83,20 +85,18 @@ async function storeWeatherData(location) {
   return weatherData;
 }
 
-function populateWeatherForecastData(containerArray, data) {
+function populateWeatherForecastData(containerArray, data, index, forecastDay) {
   //forecast date data
-  containerArray[0][1].children[1].innerHTML = data["weatherDataDayOne"].date;
+  containerArray[index][1].children[1].innerHTML = data[forecastDay].date;
   //forcast condition data
-  containerArray[0][3].children[1].innerHTML =
-    data["weatherDataDayOne"].condition;
-  containerArray[0][5].children[1].innerHTML =
-    data["weatherDataDayOne"].tempLow;
-
-  containerArray[0][7].children[1].innerHTML =
-    data["weatherDataDayOne"].tempHigh;
-
-  containerArray[0][9].children[1].innerHTML =
-    data["weatherDataDayOne"].tempHigh;
+  containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
+  //forecast low temp data
+  containerArray[index][5].children[1].innerHTML = data[forecastDay].tempLow;
+  //forecast high temp data
+  containerArray[index][7].children[1].innerHTML = data[forecastDay].tempHigh;
+  //forecast humidity data
+  containerArray[index][9].children[1].innerHTML =
+    data[forecastDay].avgHumidity;
 }
 searchBtn.addEventListener("click", () => {
   let location = citySearch.value;
@@ -108,11 +108,34 @@ searchBtn.addEventListener("click", () => {
 
     //console.log(data["locationData"].country);
     //console.log(data);
-    populateWeatherForecastData(forecastContainers, data);
+    let weatherForecastDayArray = [
+      "weatherDataDayOne",
+      "weatherDataSecondDay",
+      "weatherDataThirdDay",
+    ];
+    for (let i = 0; i < weatherForecastDayArray.length; i++) {
+      populateWeatherForecastData(
+        forecastContainers,
+        data,
+        i,
+        weatherForecastDayArray[i],
+      );
+    }
+    locationContainer.children[1].innerHTML =
+      data["locationData"].name +
+      " ," +
+      data["locationData"].region +
+      " ," +
+      data["locationData"].country;
+
+    console.log(data["weatherDataThirdDay"].icon);
+    //icon assignment wont work in promise
   });
+
+  citySearch.value = "";
 });
 
-console.log(weatherForecastContainer[1].children[1]);
-//console.log(weatherForecastContainer);
-console.log(forecastContainers);
-console.log(weatherForecastContainer[7].children[1]);
+// console.log(weatherForecastContainer[1].children[1]);
+// //console.log(weatherForecastContainer);
+// console.log(forecastContainers);
+// console.log(weatherForecastContainer[7].children[1]);
