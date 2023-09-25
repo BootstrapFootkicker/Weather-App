@@ -84,22 +84,7 @@ async function storeWeatherData(location) {
   };
   return weatherData;
 }
-
-function populateWeatherForecastData(containerArray, data, index, forecastDay) {
-  //forecast date data
-  containerArray[index][1].children[1].innerHTML = data[forecastDay].date;
-  //forcast condition data
-  containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
-  //forecast low temp data
-  containerArray[index][5].children[1].innerHTML = data[forecastDay].tempLow;
-  //forecast high temp data
-  containerArray[index][7].children[1].innerHTML = data[forecastDay].tempHigh;
-  //forecast humidity data
-  containerArray[index][9].children[1].innerHTML =
-    data[forecastDay].avgHumidity;
-}
-searchBtn.addEventListener("click", () => {
-  let location = citySearch.value;
+function displayWeatherDataToDom(location) {
   storeWeatherData(location).then((data) => {
     currentDateData.innerHTML = data["weatherDataCurrent"].date;
     currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
@@ -133,9 +118,29 @@ searchBtn.addEventListener("click", () => {
   });
 
   citySearch.value = "";
+}
+
+function populateWeatherForecastData(containerArray, data, index, forecastDay) {
+  //forecast date data
+  containerArray[index][1].children[1].innerHTML = data[forecastDay].date;
+  //forcast condition data
+  containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
+  //forecast low temp data
+  containerArray[index][5].children[1].innerHTML = data[forecastDay].tempLow;
+  //forecast high temp data
+  containerArray[index][7].children[1].innerHTML = data[forecastDay].tempHigh;
+  //forecast humidity data
+  containerArray[index][9].children[1].innerHTML =
+    data[forecastDay].avgHumidity;
+}
+searchBtn.addEventListener("click", () => {
+  let location = citySearch.value;
+  displayWeatherDataToDom(location);
 });
 
 // console.log(weatherForecastContainer[1].children[1]);
 // //console.log(weatherForecastContainer);
 // console.log(forecastContainers);
 // console.log(weatherForecastContainer[7].children[1]);
+
+displayWeatherDataToDom("New York");

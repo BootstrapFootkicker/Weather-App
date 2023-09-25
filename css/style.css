@@ -8,7 +8,7 @@ body {
   padding: 20px;
   outline: red solid 2px;
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
 }
 .weather-container {
@@ -25,15 +25,41 @@ body {
 .current-date-container,
 .current-humidity-container,
 .current-temp-container,
-
 .forecast-condition-container,
 .forecast-humidity-container,
 .forecast-temp-low-container,
 .forecast-temp-high-container,
 .forecast-date-container,
-
-.location-container
-{
+.location-container {
   display: flex;
   gap: 5px;
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, 400px));
+  grid-template-rows: repeat(2, minmax(100px, 400px));
+  outline: green 2px solid;
+  grid-gap: 35px;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  padding: 40px;
+}
+
+#weather-container-current {
+  grid-column: 2;
+  grid-row: 1;
+}
+#weather-container-forecast-1 {
+  grid-column: 1;
+  grid-row: 2;
+}
+#weather-container-forecast-2 {
+  grid-column: 2;
+  grid-row: 2;
+}
+#weather-container-forecast-3 {
+  grid-column: 3;
+  grid-row: 2;
 }
