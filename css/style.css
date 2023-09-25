@@ -45,6 +45,8 @@ body {
   align-content: center;
   height: 100%;
   padding: 40px;
+  justify-items: center;
+  align-items: center;
 }
 
 #weather-container-current {

@@ -7,6 +7,7 @@ const currentConditionData = document.querySelector(".current-condition-data");
 const currentHumidityData = document.querySelector(".current-humidity-data");
 const currentTempData = document.querySelector(".current-temp-data");
 const locationContainer = document.querySelector(".location-container");
+const currentIcon = document.querySelector(".current-icon");
 
 const forecastContainers = [
   (weatherForecastContainer = document.querySelector(
@@ -85,12 +86,29 @@ async function storeWeatherData(location) {
   return weatherData;
 }
 function displayWeatherDataToDom(location) {
+  const date = new Date();
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    time: "numeric",
+  };
+
   storeWeatherData(location).then((data) => {
-    currentDateData.innerHTML = data["weatherDataCurrent"].date;
+    currentDateData.innerHTML =
+      date.toLocaleDateString("en-US", options) +
+      "\n" +
+      date.toLocaleTimeString("en-US").toString().slice(0, 4) +
+      date.toLocaleTimeString("en-US").toString().slice(7, 10);
+
     currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
     currentTempData.innerHTML = data["weatherDataCurrent"].temp;
     currentHumidityData.innerHTML = data["weatherDataCurrent"].humidity;
+    currentIcon.src = data["weatherDataCurrent"].icon;
 
+    console.log(currentIcon);
     //console.log(data["locationData"].country);
     //console.log(data);
     let weatherForecastDayArray = [
@@ -113,16 +131,30 @@ function displayWeatherDataToDom(location) {
       " ," +
       data["locationData"].country;
 
-    console.log(data["weatherDataThirdDay"].icon);
-    //icon assignment wont work in promise
+    // console.log(data);
   });
 
   citySearch.value = "";
 }
 
 function populateWeatherForecastData(containerArray, data, index, forecastDay) {
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  console.log(data[forecastDay].date);
+  //new date is 1 day behind
+  let dateDay = new Date(data[forecastDay].date);
+  //offset date by 1 day
+  let day = weekday[dateDay.getDay() + 1];
+  console.log(dateDay);
   //forecast date data
-  containerArray[index][1].children[1].innerHTML = data[forecastDay].date;
+  containerArray[index][1].children[1].innerHTML = day;
   //forcast condition data
   containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
   //forecast low temp data
@@ -132,6 +164,7 @@ function populateWeatherForecastData(containerArray, data, index, forecastDay) {
   //forecast humidity data
   containerArray[index][9].children[1].innerHTML =
     data[forecastDay].avgHumidity;
+  containerArray[index][11].children[0].src = data[forecastDay].icon;
 }
 searchBtn.addEventListener("click", () => {
   let location = citySearch.value;
@@ -144,3 +177,4 @@ searchBtn.addEventListener("click", () => {
 // console.log(weatherForecastContainer[7].children[1]);
 
 displayWeatherDataToDom("New York");
+//currentIcon.src = "https://www.qries.com/images/banner_logo.png";
