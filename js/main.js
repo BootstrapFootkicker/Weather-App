@@ -6,6 +6,17 @@ const currentDateData = document.querySelector(".current-date-data");
 const currentConditionData = document.querySelector(".current-condition-data");
 const currentHumidityData = document.querySelector(".current-humidity-data");
 const currentTempData = document.querySelector(".current-temp-data");
+const forecastContainers = [
+  (weatherForecastContainer = document.querySelector(
+    "#weather-container-forecast-1",
+  ).childNodes),
+  (weatherForecastContainer2 = document.querySelector(
+    "#weather-container-forecast-2",
+  ).childNodes),
+  (weatherForecastContainer3 = document.querySelector(
+    "#weather-container-forecast-3",
+  ).childNodes),
+];
 
 async function getWeatherData(location) {
   const response = await fetch(
@@ -72,6 +83,21 @@ async function storeWeatherData(location) {
   return weatherData;
 }
 
+function populateWeatherForecastData(containerArray, data) {
+  //forecast date data
+  containerArray[0][1].children[1].innerHTML = data["weatherDataDayOne"].date;
+  //forcast condition data
+  containerArray[0][3].children[1].innerHTML =
+    data["weatherDataDayOne"].condition;
+  containerArray[0][5].children[1].innerHTML =
+    data["weatherDataDayOne"].tempLow;
+
+  containerArray[0][7].children[1].innerHTML =
+    data["weatherDataDayOne"].tempHigh;
+
+  containerArray[0][9].children[1].innerHTML =
+    data["weatherDataDayOne"].tempHigh;
+}
 searchBtn.addEventListener("click", () => {
   let location = citySearch.value;
   storeWeatherData(location).then((data) => {
@@ -79,7 +105,14 @@ searchBtn.addEventListener("click", () => {
     currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
     currentTempData.innerHTML = data["weatherDataCurrent"].temp;
     currentHumidityData.innerHTML = data["weatherDataCurrent"].humidity;
+
     //console.log(data["locationData"].country);
     //console.log(data);
+    populateWeatherForecastData(forecastContainers, data);
   });
 });
+
+console.log(weatherForecastContainer[1].children[1]);
+//console.log(weatherForecastContainer);
+console.log(forecastContainers);
+console.log(weatherForecastContainer[7].children[1]);
