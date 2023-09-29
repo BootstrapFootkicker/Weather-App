@@ -8,18 +8,22 @@ const currentHumidityData = document.querySelector(".current-humidity-data");
 const currentTempData = document.querySelector(".current-temp-data");
 const locationContainer = document.querySelector(".location-container");
 const currentIcon = document.querySelector(".current-icon");
+//todo add api to grab date and time based on location
 
-const forecastContainers = [
-  (weatherForecastContainer = document.querySelector(
-    "#weather-container-forecast-1",
-  ).childNodes),
-  (weatherForecastContainer2 = document.querySelector(
-    "#weather-container-forecast-2",
-  ).childNodes),
-  (weatherForecastContainer3 = document.querySelector(
-    "#weather-container-forecast-3",
-  ).childNodes),
-];
+const weatherContentContainers = document.querySelector(
+  ".weather-content-container",
+).childNodes;
+// const forecastContainers = [
+//   (weatherForecastContainer = document.querySelector(
+//     "#weather-container-forecast-1",
+//   ).childNodes),
+//   (weatherForecastContainer2 = document.querySelector(
+//     "#weather-container-forecast-2",
+//   ).childNodes),
+//   (weatherForecastContainer3 = document.querySelector(
+//     "#weather-container-forecast-3",
+//   ).childNodes),
+// ];
 
 async function getWeatherData(location) {
   const response = await fetch(
@@ -37,6 +41,7 @@ async function storeWeatherData(location) {
   const data = await getWeatherData(location).catch((err) => {
     console.log("This is the error report!", err);
   });
+  console.log("data", data);
   let locationData = {
     name: data.location.name,
     region: data.location.region,
@@ -49,6 +54,10 @@ async function storeWeatherData(location) {
     condition: data.current.condition.text,
     icon: data.current.condition.icon,
     humidity: data.current.humidity,
+    feelsLike: data.current.feelslike_f,
+    windSpeed: data.current.wind_mph,
+    pressure: data.current.pressure_in,
+    precipitationProbability: data.current.precip_in,
   };
 
   let weatherDataDayOne = {
@@ -58,6 +67,8 @@ async function storeWeatherData(location) {
     condition: data.forecast.forecastday[0].day.condition.text,
     icon: data.forecast.forecastday[0].day.condition.icon,
     avgHumidity: data.forecast.forecastday[0].day.avghumidity,
+    hourly: data.forecast.forecastday[0].hour,
+    astro: data.forecast.forecastday[0].astro,
   };
   let weatherDataSecondDay = {
     date: data.forecast.forecastday[1].date,
@@ -66,6 +77,8 @@ async function storeWeatherData(location) {
     condition: data.forecast.forecastday[1].day.condition.text,
     icon: data.forecast.forecastday[1].day.condition.icon,
     avgHumidity: data.forecast.forecastday[1].day.avghumidity,
+    hourly: data.forecast.forecastday[1].hour,
+    astro: data.forecast.forecastday[1].astro,
   };
   let weatherDataThirdDay = {
     date: data.forecast.forecastday[2].date,
@@ -74,6 +87,8 @@ async function storeWeatherData(location) {
     condition: data.forecast.forecastday[2].day.condition.text,
     icon: data.forecast.forecastday[2].day.condition.icon,
     avgHumidity: data.forecast.forecastday[2].day.avghumidity,
+    hourly: data.forecast.forecastday[2].hour,
+    astro: data.forecast.forecastday[2].astro,
   };
 
   let weatherData = {
@@ -97,20 +112,54 @@ function displayWeatherDataToDom(location) {
   };
 
   storeWeatherData(location).then((data) => {
+    //todo replace with different api for time
     currentDateData.innerHTML =
       date.toLocaleDateString("en-US", options) +
       "\n" +
       date.toLocaleTimeString("en-US").toString().slice(0, 4) +
       date.toLocaleTimeString("en-US").toString().slice(7, 10);
 
-    currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
-    currentTempData.innerHTML = data["weatherDataCurrent"].temp;
-    currentHumidityData.innerHTML = data["weatherDataCurrent"].humidity;
-    currentIcon.src = data["weatherDataCurrent"].icon;
+    // currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
+    // currentTempData.innerHTML = data["weatherDataCurrent"].temp;
+    // currentHumidityData.innerHTML = data["weatherDataCurrent"].humidity;
+    // currentIcon.src = data["weatherDataCurrent"].icon;
+    //current icon div
+    weatherContentContainers[1].children[0].src =
+      data["weatherDataCurrent"].icon;
+    //sunrise time div
+    weatherContentContainers[1].children[1].children[1].innerHTML =
+      data["weatherDataDayOne"].astro.sunrise;
+    //sunset time div
+    weatherContentContainers[1].children[2].children[1].innerHTML =
+      data["weatherDataDayOne"].astro.sunset;
+    //temp div
+    weatherContentContainers[3].children[1].children[1].innerHTML =
+      data["weatherDataCurrent"].temp;
+    //feels like div
+    weatherContentContainers[3].children[2].children[1].innerHTML =
+      data["weatherDataCurrent"].feelsLike;
+    //condition div
+    weatherContentContainers[3].children[3].children[1].innerHTML =
+      data["weatherDataCurrent"].condition;
 
-    console.log(currentIcon);
+    //more details stuff
+    //wind speed div
+    weatherContentContainers[5].children[1].children[1].innerHTML =
+      data["weatherDataCurrent"].windSpeed;
+
+    //air humidity div
+    weatherContentContainers[5].children[2].children[1].innerHTML =
+      data["weatherDataCurrent"].humidity;
+
+    //pressure div
+    weatherContentContainers[5].children[3].children[1].innerHTML =
+      data["weatherDataCurrent"].pressure;
+
+    //precip probability div
+    weatherContentContainers[5].children[4].children[1].innerHTML =
+      data["weatherDataCurrent"].precipitationProbability;
     //console.log(data["locationData"].country);
-    //console.log(data);
+    console.log("data2", data);
     let weatherForecastDayArray = [
       "weatherDataDayOne",
       "weatherDataSecondDay",
@@ -178,3 +227,4 @@ searchBtn.addEventListener("click", () => {
 
 displayWeatherDataToDom("New York");
 //currentIcon.src = "https://www.qries.com/images/banner_logo.png";
+console.log(weatherContentContainers);
