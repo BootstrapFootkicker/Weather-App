@@ -43,6 +43,23 @@ body {
   align-items: center;
 }
 
+.hourly-data-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.timeOfDayContainer {
+  display: flex;
+  gap: 5px;
+}
+
+.hourly-forecast-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /*.current-condition-container,*/
 /*.current-date-container,*/
 /*.current-humidity-container,*/

@@ -1,18 +1,18 @@
 const api_key = "63e142d5a9384ca298c195453232209";
 const citySearch = document.querySelector(".city-search");
 const searchBtn = document.querySelector(".search-button");
-const weatherContainer = document.querySelector(".weather-container");
 const currentDateData = document.querySelector(".current-date-data");
-const currentConditionData = document.querySelector(".current-condition-data");
-const currentHumidityData = document.querySelector(".current-humidity-data");
-const currentTempData = document.querySelector(".current-temp-data");
 const locationContainer = document.querySelector(".location-container");
-const currentIcon = document.querySelector(".current-icon");
+
 //todo add api to grab date and time based on location
+const hourlyForecastData = document.querySelector(
+  ".hourly-forecast-div",
+).childNodes;
 
 const weatherContentContainers = document.querySelector(
   ".weather-content-container",
 ).childNodes;
+
 // const forecastContainers = [
 //   (weatherForecastContainer = document.querySelector(
 //     "#weather-container-forecast-1",
@@ -24,6 +24,23 @@ const weatherContentContainers = document.querySelector(
 //     "#weather-container-forecast-3",
 //   ).childNodes),
 // ];
+
+function populate24HourForecastData(containerArray, data) {
+  let divIndex = 1;
+
+  for (let i = 0; i < 24; i++) {
+    containerArray[divIndex].children[0].src =
+      data["weatherDataDayOne"].hourly[i].condition.icon;
+
+    containerArray[divIndex].children[1].innerHTML =
+      data["weatherDataDayOne"].hourly[i].temp_f;
+
+    containerArray[divIndex].children[2].innerHTML = data[
+      "weatherDataDayOne"
+    ].hourly[i].time.slice(11, 16);
+    divIndex += 2;
+  }
+}
 
 async function getWeatherData(location) {
   const response = await fetch(
@@ -165,6 +182,8 @@ function displayWeatherDataToDom(location) {
       "weatherDataSecondDay",
       "weatherDataThirdDay",
     ];
+    populate24HourForecastData(hourlyForecastData, data);
+
     for (let i = 0; i < weatherForecastDayArray.length; i++) {
       populateWeatherForecastData(
         forecastContainers,
@@ -173,6 +192,7 @@ function displayWeatherDataToDom(location) {
         weatherForecastDayArray[i],
       );
     }
+
     locationContainer.children[1].innerHTML =
       data["locationData"].name +
       " ," +
@@ -220,11 +240,7 @@ searchBtn.addEventListener("click", () => {
   displayWeatherDataToDom(location);
 });
 
-// console.log(weatherForecastContainer[1].children[1]);
-// //console.log(weatherForecastContainer);
-// console.log(forecastContainers);
-// console.log(weatherForecastContainer[7].children[1]);
-
 displayWeatherDataToDom("New York");
 //currentIcon.src = "https://www.qries.com/images/banner_logo.png";
 console.log(weatherContentContainers);
+console.log(hourlyForecastData[1].children[0]);
