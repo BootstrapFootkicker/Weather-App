@@ -24,114 +24,133 @@
         <button class="search-button">Search</button>
       </div>
     </header>
+    <div class="body-content">
+      <div class="weather-content-container">
+        <div class="image-container">
+          <img class="current-icon" src="" alt="img icon" />
 
-    <div class="weather-content-container">
-      <div class="image-container">
-        <img class="current-icon" src="" alt="img icon" />
+          <div class="sunrise-container">
+            <p class="sunrise">Sunrise:</p>
+            <p class="sunrise-data"></p>
+          </div>
 
-        <div class="sunrise-container">
-          <p class="sunrise">Sunrise: </p>
-        <p class="sunrise-data"></p>
+          <div class="sunset-container">
+            <p class="sunset">Sunset:</p>
+            <p class="sunset-data"></p>
+          </div>
         </div>
 
-        <div class="sunset-container">
-          <p class="sunset">Sunset: </p>
-        <p class="sunset-data"></p>
+        <div class="weather-container" id="weather-container-current">
+          <div class="current-date-container">
+            <p class="current-date-text">Today's Date:</p>
+            <p class="current-date-data"></p>
+          </div>
+
+          <div class="current-temp-container">
+            <p class="current-temp">Current Temp:</p>
+            <p class="current-temp-data"></p>
+          </div>
+
+          <div class="feels-like-container">
+            <p class="feels-like-text">Feels Like:</p>
+            <p class="feels-like-data"></p>
+          </div>
+
+          <div class="current-condition-container">
+            <p class="current-condition-text">Current Condition:</p>
+            <p class="current-condition-data"></p>
+          </div>
         </div>
 
-      </div>
-
-      <div class="weather-container" id="weather-container-current">
-        <div class="current-date-container">
-          <p class="current-date-text">Today's Date:</p>
-          <p class="current-date-data"></p>
-        </div>
-
-        <div class="current-temp-container">
-          <p class="current-temp">Current Temp:</p>
-          <p class="current-temp-data"></p>
-        </div>
-
-        <div class="feels-like-container">
-          <p class="feels-like-text">Feels Like:</p>
-          <p class="feels-like-data"></p>
-        </div>
-
-        <div class="current-condition-container">
-          <p class="current-condition-text">Current Condition:</p>
-          <p class="current-condition-data"></p>
-        </div>
-      </div>
-
-      <div class="more-details-container">
+        <div class="more-details-container">
           <p class="more-details-text">More Details:</p>
-        <div class="current-wind-container">
-          <p class="wind-speed">Wind Speed: </p>
-          <p class="wind-speed-data"></p>
+          <div class="current-wind-container">
+            <p class="wind-speed">Wind Speed:</p>
+            <p class="wind-speed-data"></p>
+          </div>
+          <div class="air-humidity-container">
+            <p class="air-humidity">Air humidity:</p>
+            <p class="air-humidity-data"></p>
+          </div>
+          <div class="pressure-container">
+            <p class="pressure">Pressure:</p>
+            <p class="pressure-data"></p>
+          </div>
+          <div class="precip-prob-container">
+            <p class="precipitation-probability">Precipitation Probability:</p>
+            <p class="precipitation-probability-data"></p>
+          </div>
         </div>
-<div class="air-humidity-container">
-  <p class="air-humidity">Air humidity:</p>
-  <p class="air-humidity-data"></p>
-</div>
-<div class="pressure-container">
-  <p class="pressure">Pressure: </p>
-  <p class="pressure-data"></p>
-</div>
-     <div class="precip-prob-container">
-       <p class="precipitation-probability">Precipitation Probability: </p>
-       <p class="precipitation-probability-data"></p>
-     </div>
 
+        <div class="hourly-forecast-div">
+          <button class="left-button"><</button>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+          <div class="hourly-data-container">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data"></p>
+          </div>
+
+          <button class="right-button">></button>
         </div>
-
-      <div class="hourly-forecast-div">
-<button class="left-button"><</button>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
+      </div>
+      <div class="weekly-forecast-container">
+        <div class="weekly-forecast-data-container">
+          <p class="weekly-forecast-day"></p>
+          <p class="weekly-forecast-min-temp"></p>
+          <p class="weekly-forecast-max-temp"></p>
+          <p class="weekly-forecast-condition"></p>
+          <img src="" alt="icon-img" class="weekly-forecast-image" />
         </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-        <div class="hourly-data-container">
-          <img src="" alt="icon-img" class="hourly-image">
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data"></p>
-          </div>
-
-<button class="right-button">></button>
+        <div class="weekly-forecast-data-container">
+          <p class="weekly-forecast-day"></p>
+          <p class="weekly-forecast-min-temp"></p>
+          <p class="weekly-forecast-max-temp"></p>
+          <p class="weekly-forecast-condition"></p>
+          <img src="" alt="icon-img" class="weekly-forecast-image" />
+        </div>
+        <div class="weekly-forecast-data-container">
+          <p class="weekly-forecast-day"></p>
+          <p class="weekly-forecast-min-temp"></p>
+          <p class="weekly-forecast-max-temp"></p>
+          <p class="weekly-forecast-condition"></p>
+          <img src="" alt="icon-img" class="weekly-forecast-image" />
         </div>
       </div>
     </div>
-
-
   </body>
 </html>

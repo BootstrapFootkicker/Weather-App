@@ -15,17 +15,9 @@ const weatherContentContainers = document.querySelector(
   ".weather-content-container",
 ).childNodes;
 
-// const forecastContainers = [
-//   (weatherForecastContainer = document.querySelector(
-//     "#weather-container-forecast-1",
-//   ).childNodes),
-//   (weatherForecastContainer2 = document.querySelector(
-//     "#weather-container-forecast-2",
-//   ).childNodes),
-//   (weatherForecastContainer3 = document.querySelector(
-//     "#weather-container-forecast-3",
-//   ).childNodes),
-// ];
+const foreCastContainer = document.querySelector(
+  ".weekly-forecast-container",
+).childNodes;
 
 function findStartingIndex() {
   let index = hourlyForecastData[17].children[2].innerHTML.slice(0, 2);
@@ -39,8 +31,10 @@ function populate24HourForecastData(containerArray, data, startingIndex) {
   let divIndex = 3;
 
   for (startingIndex; startingIndex <= startingIndex + 7; startingIndex++) {
-    console.log(startingIndex, "starting index variable");
     if (divIndex > 17) {
+      break;
+    }
+    if (startingIndex > 23 || startingIndex < 0) {
       break;
     }
     containerArray[divIndex].children[0].src =
@@ -54,8 +48,6 @@ function populate24HourForecastData(containerArray, data, startingIndex) {
     ].hourly[startingIndex].time.slice(11, 16);
     divIndex += 2;
   }
-
-  console.log(findStartingIndex(), "starting index");
 }
 
 async function getWeatherData(location) {
@@ -79,6 +71,7 @@ async function storeWeatherData(location) {
     name: data.location.name,
     region: data.location.region,
     country: data.location.country,
+    localTime: data.location.localtime,
   };
 
   let weatherDataCurrent = {
@@ -145,17 +138,20 @@ function displayWeatherDataToDom(location) {
   };
 
   storeWeatherData(location).then((data) => {
-    //todo replace with different api for time
-    currentDateData.innerHTML =
-      date.toLocaleDateString("en-US", options) +
-      "\n" +
-      date.toLocaleTimeString("en-US").toString().slice(0, 4) +
-      date.toLocaleTimeString("en-US").toString().slice(7, 10);
+    let localDay = getWeekDayName2(data["locationData"].localTime);
+    let localMonth = getMonthName(data["locationData"].localTime);
+    let localTime = data["locationData"].localTime.slice(10, 16);
 
-    // currentConditionData.innerHTML = data["weatherDataCurrent"].condition;
-    // currentTempData.innerHTML = data["weatherDataCurrent"].temp;
-    // currentHumidityData.innerHTML = data["weatherDataCurrent"].humidity;
-    // currentIcon.src = data["weatherDataCurrent"].icon;
+    console.log(localDay, "localDay");
+    console.log(localMonth, "localMonth");
+    console.log(localTime, "localTime");
+
+    console.log(
+      getWeekDayName2(data["locationData"].localTime),
+      "getWeekDayName2",
+    );
+    currentDateData.innerHTML = data["locationData"].localTime.slice(10, 16);
+
     //current icon div
     weatherContentContainers[1].children[0].src =
       data["weatherDataCurrent"].icon;
@@ -193,11 +189,7 @@ function displayWeatherDataToDom(location) {
       data["weatherDataCurrent"].precipitationProbability;
     //console.log(data["locationData"].country);
     console.log("data2", data);
-    let weatherForecastDayArray = [
-      "weatherDataDayOne",
-      "weatherDataSecondDay",
-      "weatherDataThirdDay",
-    ];
+
     populate24HourForecastData(hourlyForecastData, data, 0);
 
     leftButton.addEventListener("click", () => {
@@ -211,14 +203,7 @@ function displayWeatherDataToDom(location) {
 
       populate24HourForecastData(hourlyForecastData, data, index);
     });
-    for (let i = 0; i < weatherForecastDayArray.length; i++) {
-      populateWeatherForecastData(
-        forecastContainers,
-        data,
-        i,
-        weatherForecastDayArray[i],
-      );
-    }
+    populateWeatherForecastData(foreCastContainer, data);
 
     locationContainer.children[1].innerHTML =
       data["locationData"].name +
@@ -232,8 +217,8 @@ function displayWeatherDataToDom(location) {
 
   citySearch.value = "";
 }
-
-function populateWeatherForecastData(containerArray, data, index, forecastDay) {
+function getWeekDayName2(dateData) {
+  dateData = new Date(dateData);
   const weekday = [
     "Sunday",
     "Monday",
@@ -243,24 +228,105 @@ function populateWeatherForecastData(containerArray, data, index, forecastDay) {
     "Friday",
     "Saturday",
   ];
-  console.log(data[forecastDay].date);
-  //new date is 1 day behind
-  let dateDay = new Date(data[forecastDay].date);
-  //offset date by 1 day
-  let day = weekday[dateDay.getDay() + 1];
-  console.log(dateDay);
-  //forecast date data
-  containerArray[index][1].children[1].innerHTML = day;
-  //forcast condition data
-  containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
-  //forecast low temp data
-  containerArray[index][5].children[1].innerHTML = data[forecastDay].tempLow;
-  //forecast high temp data
-  containerArray[index][7].children[1].innerHTML = data[forecastDay].tempHigh;
-  //forecast humidity data
-  containerArray[index][9].children[1].innerHTML =
-    data[forecastDay].avgHumidity;
-  containerArray[index][11].children[0].src = data[forecastDay].icon;
+
+  let day = weekday[dateData.getDay()];
+  if (dateData.getDay() + 1 > 6) {
+    day = weekday[0];
+  }
+  return day;
+}
+
+function getMonthName(dateData) {
+  dateData = new Date(dateData);
+  const months = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September ",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[dateData.getMonth()];
+  if (dateData.getMonth() + 1 > 11) {
+    month = months[0];
+  }
+  return month;
+}
+function getWeekDayName(data, weatherForecastDayArray) {
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let dayArray = [];
+  for (let i = 0; i < 3; i++) {
+    //new date is 1 day behind
+    let dateDay = new Date(data[weatherForecastDayArray[i]].date);
+    //offset date by 1 day
+    let day = weekday[dateDay.getDay() + 1];
+    if (dateDay.getDay() + 1 > 6) {
+      day = weekday[0];
+    }
+
+    console.log(dateDay.getDay());
+    console.log(day);
+    dayArray.push(day);
+  }
+  return dayArray;
+}
+function populateWeatherForecastData(containerArray, data) {
+  let weatherForecastDayArray = [
+    "weatherDataDayOne",
+    "weatherDataSecondDay",
+    "weatherDataThirdDay",
+  ];
+  let divIndex = 1;
+  let dayArray = getWeekDayName(data, weatherForecastDayArray);
+  //console.log(data[forecastDay].date);
+
+  for (let i = 0; i < 3; i++) {
+    if (divIndex > 5) {
+      break;
+    }
+
+    //minTemp
+    containerArray[divIndex].children[1].innerHTML =
+      data[weatherForecastDayArray[i]].tempLow;
+    //forecast day
+    containerArray[divIndex].children[0].innerHTML = dayArray[i];
+    //maxtemp
+    containerArray[divIndex].children[2].innerHTML =
+      data[weatherForecastDayArray[i]].tempHigh;
+    //condition
+    containerArray[divIndex].children[3].innerHTML =
+      data[weatherForecastDayArray[i]].condition;
+    //icon
+    containerArray[divIndex].children[4].src =
+      data[weatherForecastDayArray[i]].icon;
+    divIndex += 2;
+  }
+  // containerArray[index][1].children[1].innerHTML = day;
+  // //forcast condition data
+  // containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
+  // //forecast low temp data
+  // containerArray[index][5].children[1].innerHTML = data[forecastDay].tempLow;
+  // //forecast high temp data
+  // containerArray[index][7].children[1].innerHTML = data[forecastDay].tempHigh;
+  // //forecast humidity data
+  // containerArray[index][9].children[1].innerHTML =
+  //   data[forecastDay].avgHumidity;
+  // containerArray[index][11].children[0].src = data[forecastDay].icon;
 }
 searchBtn.addEventListener("click", () => {
   let location = citySearch.value;
@@ -269,6 +335,5 @@ searchBtn.addEventListener("click", () => {
 
 displayWeatherDataToDom("New York");
 //currentIcon.src = "https://www.qries.com/images/banner_logo.png";
-console.log(weatherContentContainers);
-console.log(hourlyForecastData);
-//console.log(hourlyForecastData[17].children[2], "hourly forecast data");
+
+console.log(foreCastContainer);
