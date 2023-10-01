@@ -27,6 +27,8 @@ function findStartingIndex() {
 
   return Number(index);
 }
+
+//todo add celcius option to parameters
 function populate24HourForecastData(containerArray, data, startingIndex) {
   let divIndex = 3;
 
@@ -41,7 +43,7 @@ function populate24HourForecastData(containerArray, data, startingIndex) {
       data["weatherDataDayOne"].hourly[startingIndex].condition.icon;
 
     containerArray[divIndex].children[1].innerHTML =
-      data["weatherDataDayOne"].hourly[startingIndex].temp_f;
+      data["weatherDataDayOne"].hourly[startingIndex].temp_f + "°";
 
     containerArray[divIndex].children[2].innerHTML = data[
       "weatherDataDayOne"
@@ -138,11 +140,12 @@ function displayWeatherDataToDom(location) {
   };
 
   storeWeatherData(location).then((data) => {
-    let localDay = getWeekDayName2(data["locationData"].localTime);
+    let localDayName = getWeekDayName2(data["locationData"].localTime);
     let localMonth = getMonthName(data["locationData"].localTime);
     let localTime = data["locationData"].localTime.slice(10, 16);
+    let localDayNumber = data["locationData"].localTime.slice(8, 10);
 
-    console.log(localDay, "localDay");
+    console.log(localDayName, "localDay");
     console.log(localMonth, "localMonth");
     console.log(localTime, "localTime");
 
@@ -150,7 +153,9 @@ function displayWeatherDataToDom(location) {
       getWeekDayName2(data["locationData"].localTime),
       "getWeekDayName2",
     );
-    currentDateData.innerHTML = data["locationData"].localTime.slice(10, 16);
+    currentDateData.innerHTML =
+      localDayName + " " + localDayNumber + " " + localMonth + " " + localTime;
+    // data["locationData"].localTime.slice(10, 16);
 
     //current icon div
     weatherContentContainers[1].children[0].src =
@@ -163,10 +168,10 @@ function displayWeatherDataToDom(location) {
       data["weatherDataDayOne"].astro.sunset;
     //temp div
     weatherContentContainers[3].children[1].children[1].innerHTML =
-      data["weatherDataCurrent"].temp;
+      data["weatherDataCurrent"].temp + "°F";
     //feels like div
     weatherContentContainers[3].children[2].children[1].innerHTML =
-      data["weatherDataCurrent"].feelsLike;
+      data["weatherDataCurrent"].feelsLike + "°";
     //condition div
     weatherContentContainers[3].children[3].children[1].innerHTML =
       data["weatherDataCurrent"].condition;
@@ -302,12 +307,12 @@ function populateWeatherForecastData(containerArray, data) {
 
     //minTemp
     containerArray[divIndex].children[1].innerHTML =
-      data[weatherForecastDayArray[i]].tempLow;
+      data[weatherForecastDayArray[i]].tempLow + "°F";
     //forecast day
     containerArray[divIndex].children[0].innerHTML = dayArray[i];
     //maxtemp
     containerArray[divIndex].children[2].innerHTML =
-      data[weatherForecastDayArray[i]].tempHigh;
+      data[weatherForecastDayArray[i]].tempHigh + "°F";
     //condition
     containerArray[divIndex].children[3].innerHTML =
       data[weatherForecastDayArray[i]].condition;
@@ -316,17 +321,6 @@ function populateWeatherForecastData(containerArray, data) {
       data[weatherForecastDayArray[i]].icon;
     divIndex += 2;
   }
-  // containerArray[index][1].children[1].innerHTML = day;
-  // //forcast condition data
-  // containerArray[index][3].children[1].innerHTML = data[forecastDay].condition;
-  // //forecast low temp data
-  // containerArray[index][5].children[1].innerHTML = data[forecastDay].tempLow;
-  // //forecast high temp data
-  // containerArray[index][7].children[1].innerHTML = data[forecastDay].tempHigh;
-  // //forecast humidity data
-  // containerArray[index][9].children[1].innerHTML =
-  //   data[forecastDay].avgHumidity;
-  // containerArray[index][11].children[0].src = data[forecastDay].icon;
 }
 searchBtn.addEventListener("click", () => {
   let location = citySearch.value;
@@ -334,6 +328,5 @@ searchBtn.addEventListener("click", () => {
 });
 
 displayWeatherDataToDom("New York");
-//currentIcon.src = "https://www.qries.com/images/banner_logo.png";
 
 console.log(foreCastContainer);
