@@ -1,14 +1,15 @@
-  /*remove margin from current weather containers*/
+/*remove margin from current weather containers*/
 html {
   padding: 0;
   margin: 0;
   height: 100vh;
 }
 
-h1{
+h1 {
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 0;}
+  margin: 0;
+}
 body {
   color: #f5ede9;
   margin: 0;
@@ -34,7 +35,6 @@ body {
   gap: 20px;
   justify-content: space-evenly;
   font-size: 1.3rem;
-
 }
 .weather-content-container {
   display: flex;
@@ -44,23 +44,19 @@ body {
   box-sizing: border-box;
   padding: 20px;
   font-size: 1.5rem;
-  gap: 45px ;
-
+  gap: 45px;
+  transition: ease all 0.5s;
 }
 #weather-container-current {
   display: flex;
   flex-direction: column;
- flex-wrap: nowrap;
-
+  flex-wrap: nowrap;
 }
 
-
-
 .current-temp-data {
- color: #fad54f;
-  font-size:4rem;
+  color: #fad54f;
+  font-size: 4rem;
   font-weight: bolder;
-
 }
 
 .image-container {
@@ -77,22 +73,16 @@ body {
   align-items: center;
   gap: 20px;
   max-width: 120px;
-
-
-
-
 }
-
-
 
 /*they originally have 24px top and bottom margin for some reason*/
 .hourly-data-container > * {
   margin: 0;
 }
-.small-text{
+.small-text {
   font-size: 0.8rem;
   font-weight: lighter;
-  color:rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 .timeOfDayContainer {
   display: flex;
@@ -109,12 +99,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   gap: 15px;
-
-
-
-
-
-
+  transition: ease all 1s;
 }
 
 .body-content {
@@ -123,7 +108,6 @@ body {
   margin-top: auto;
   margin-bottom: auto;
   /*gap: 120px;*/
-
 }
 
 /*applies flex to all children of the class*/
@@ -147,11 +131,40 @@ body {
   margin: 0;
 }
 
-.feels-like-data{
+.feels-like-data {
   display: flex;
   align-items: center;
 }
 
-.air-humidity,.wind-speed,.pressure{
+.air-humidity,
+.wind-speed,
+.pressure {
   width: 100%;
+}
+
+@media (max-width: 1300px) {
+  body {
+    background-size: auto;
+    background-position: center right;
+  }
+  .weather-content-container {
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .hourly-forecast-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    max-height: 550px;
+  }
+  .left-button {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .right-button {
+    grid-column: 2;
+    grid-row: 5;
+  }
 }
