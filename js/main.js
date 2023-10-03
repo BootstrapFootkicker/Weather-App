@@ -167,13 +167,13 @@ function displayWeatherDataToDom(location) {
     weatherContentContainers[1].children[2].children[1].innerHTML =
       data["weatherDataDayOne"].astro.sunset;
     //temp div
-    weatherContentContainers[3].children[1].children[1].innerHTML =
+    weatherContentContainers[3].children[1].children[0].innerHTML =
       data["weatherDataCurrent"].temp + "°F";
     //feels like div
     weatherContentContainers[3].children[2].children[1].innerHTML =
       data["weatherDataCurrent"].feelsLike + "°";
     //condition div
-    weatherContentContainers[3].children[3].children[1].innerHTML =
+    weatherContentContainers[3].children[3].children[0].innerHTML =
       data["weatherDataCurrent"].condition;
 
     //more details stuff
@@ -210,7 +210,7 @@ function displayWeatherDataToDom(location) {
     });
     populateWeatherForecastData(foreCastContainer, data);
 
-    locationContainer.children[1].innerHTML =
+    locationContainer.children[0].innerHTML =
       data["locationData"].name +
       " ," +
       data["locationData"].region +
@@ -306,18 +306,18 @@ function populateWeatherForecastData(containerArray, data) {
     }
 
     //minTemp
-    containerArray[divIndex].children[1].innerHTML =
+    containerArray[divIndex].children[1].children[1].innerHTML =
       data[weatherForecastDayArray[i]].tempLow + "°F";
     //forecast day
     containerArray[divIndex].children[0].innerHTML = dayArray[i];
     //maxtemp
-    containerArray[divIndex].children[2].innerHTML =
+    containerArray[divIndex].children[2].children[1].innerHTML =
       data[weatherForecastDayArray[i]].tempHigh + "°F";
     //condition
-    containerArray[divIndex].children[3].innerHTML =
+    containerArray[divIndex].children[3].children[1].innerHTML =
       data[weatherForecastDayArray[i]].condition;
     //icon
-    containerArray[divIndex].children[4].src =
+    containerArray[divIndex].children[3].children[0].src =
       data[weatherForecastDayArray[i]].icon;
     divIndex += 2;
   }

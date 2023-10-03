@@ -35,6 +35,11 @@ body {
   gap: 20px;
   justify-content: space-evenly;
   font-size: 1.3rem;
+
+}
+
+.weekly-forecast-image{
+  justify-self: center;
 }
 .weather-content-container {
   display: flex;
@@ -52,7 +57,10 @@ body {
   flex-direction: column;
   flex-wrap: nowrap;
 }
+.current-condition-container{
+  justify-content: flex-start;
 
+}
 .current-temp-data {
   color: #fad54f;
   font-size: 4rem;
@@ -64,6 +72,17 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+
+.weekly-image-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+.weekly-image-container img{
+  margin-left: -15px;
 }
 
 .hourly-data-container {
@@ -83,6 +102,8 @@ body {
   font-size: 0.8rem;
   font-weight: lighter;
   color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items:center ;
 }
 .timeOfDayContainer {
   display: flex;
@@ -107,7 +128,7 @@ body {
   flex-direction: column;
   margin-top: auto;
   margin-bottom: auto;
-  /*gap: 120px;*/
+  gap: 120px;
 }
 
 /*applies flex to all children of the class*/
@@ -123,6 +144,14 @@ body {
   align-items: center;
 }
 
+  .precipitation-probability {
+    width: 60%;
+  }
+
+  .precip-prob-container {
+   justify-content: flex-start;
+    align-items: center;
+  }
 .image-container > * {
   display: flex;
   gap: 5px;
@@ -134,37 +163,128 @@ body {
 .feels-like-data {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
+
+.min-forecast-container,.max-forecast-container{
+  display: flex;
+  gap: 5px;
+}
+
 
 .air-humidity,
 .wind-speed,
-.pressure {
+.pressure,
+.precipitation-probability{
   width: 100%;
 }
+.left-button,.right-button{
+background-color: transparent;
+  border: none;
+  font-size: 1rem;
+}
 
+.left-button:hover , .right-button:hover{
+  color: white;
+  cursor: pointer;
+}
 @media (max-width: 1300px) {
   body {
     background-size: auto;
     background-position: center right;
+
   }
+  .body-content{
+    gap: 50px;
+    padding: 20px
+  }
+
   .weather-content-container {
     flex-direction: column;
     gap: 20px;
     justify-content: center;
     align-items: center;
   }
+
+  #weather-container-current {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-container {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+
+  .image-container {
+    justify-content: center;
+    align-items: center;
+  }
+
   .hourly-forecast-div {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    max-height: 550px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    max-height: 450px;
+    position: relative;
+    padding: 40px;
   }
+
   .left-button {
+    position: absolute;
+    left: 5px;
+
+  }
+
+  .right-button {
+    position: absolute;
+    right:5px;
+  }
+
+  #hourly-1 {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  #hourly-2 {
     grid-column: 2;
     grid-row: 1;
   }
-  .right-button {
+  #hourly-3 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  #hourly-4 {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  #hourly-5 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  #hourly-6 {
     grid-column: 2;
-    grid-row: 5;
+    grid-row: 2;
+  }
+
+  #hourly-7 {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  #hourly-8 {
+    grid-column: 4;
+    grid-row: 2;
+  }
+}
+
+@media (min-width: 1600px){
+  .weather-content-container{
+    gap: 150px;
   }
 }

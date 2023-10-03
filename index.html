@@ -8,6 +8,10 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="./js/main.js" defer></script>
     <title>Weather app</title>
   </head>
@@ -16,7 +20,6 @@
     <header class="header-container">
       <h1 class="header-text">Weather App</h1>
       <div class="location-container">
-        <p class="location-text">Location:</p>
         <p class="location-data"></p>
       </div>
       <div class="search-container">
@@ -29,25 +32,23 @@
         <div class="image-container">
           <img class="current-icon" src="" alt="img icon" />
 
-          <div class="sunrise-container  small-text">
+          <div class="sunrise-container small-text">
             <p class="sunrise">Sunrise:</p>
             <p class="sunrise-data"></p>
           </div>
 
-          <div class="sunset-container  small-text">
-            <p class="sunset ">Sunset:</p>
+          <div class="sunset-container small-text">
+            <p class="sunset">Sunset:</p>
             <p class="sunset-data"></p>
           </div>
         </div>
 
         <div class="weather-container no-margin" id="weather-container-current">
           <div class="current-date-container">
-            <p class="current-date-text"></p>
             <h1 class="current-date-data"></h1>
           </div>
 
           <div class="current-temp-container">
-            <p class="current-temp"></p>
             <p class="current-temp-data no-margin"></p>
           </div>
 
@@ -57,7 +58,6 @@
           </div>
 
           <div class="current-condition-container">
-            <p class="current-condition-text"></p>
             <p class="current-condition-data no-margin"></p>
           </div>
         </div>
@@ -65,93 +65,125 @@
         <div class="more-details-container">
           <h1 class="more-details-text">More Details:</h1>
           <div class="current-wind-container">
-            <p class="wind-speed small-text" >Wind Speed:</p>
+            <p class="wind-speed small-text">Wind Speed:</p>
             <p class="wind-speed-data no-margin"></p>
+            <p class="small-text">mph</p>
           </div>
           <div class="air-humidity-container">
             <p class="air-humidity small-text">Air humidity:</p>
             <p class="air-humidity-data no-margin"></p>
+            <p class="small-text">%</p>
           </div>
           <div class="pressure-container">
-            <p class="pressure  small-text">Pressure:</p>
+            <p class="pressure small-text">Pressure:</p>
             <p class="pressure-data no-margin"></p>
+            <p class="small-text">mm</p>
           </div>
           <div class="precip-prob-container">
-            <p class="precipitation-probability  small-text">Precipitation Probability:</p>
+            <p class="precipitation-probability small-text">
+              Precipitation Probability:
+            </p>
             <p class="precipitation-probability-data no-margin"></p>
+            <p class="small-text">%</p>
           </div>
         </div>
 
         <div class="hourly-forecast-div">
-          <button class="left-button"><</button>
-          <div class="hourly-data-container">
-            <img src="" alt="icon-img" class="hourly-image" />
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data  small-text"></p>
-          </div>
-          <div class="hourly-data-container">
-            <img src="" alt="icon-img" class="hourly-image" />
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data  small-text"></p>
-          </div>
-          <div class="hourly-data-container">
-            <img src="" alt="icon-img" class="hourly-image" />
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data  small-text"></p>
-          </div>
-          <div class="hourly-data-container">
-            <img src="" alt="icon-img" class="hourly-image" />
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data  small-text"></p>
-          </div>
-          <div class="hourly-data-container">
-            <img src="" alt="icon-img" class="hourly-image" />
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data  small-text"></p>
-          </div>
-          <div class="hourly-data-container">
-            <img src="" alt="icon-img" class="hourly-image" />
-            <p class="hourly-temp-data"></p>
-            <p class="hourly-time-data  small-text"></p>
-          </div>
-          <div class="hourly-data-container">
+          <button class="left-button"><i class="fa fa-arrow-left"></i></button>
+          <div class="hourly-data-container" id="hourly-1">
             <img src="" alt="icon-img" class="hourly-image" />
             <p class="hourly-temp-data"></p>
             <p class="hourly-time-data small-text"></p>
           </div>
-          <div class="hourly-data-container">
+          <div class="hourly-data-container" id="hourly-2">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data small-text"></p>
+          </div>
+          <div class="hourly-data-container" id="hourly-3">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data small-text"></p>
+          </div>
+          <div class="hourly-data-container" id="hourly-4">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data small-text"></p>
+          </div>
+          <div class="hourly-data-container" id="hourly-5">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data small-text"></p>
+          </div>
+          <div class="hourly-data-container" id="hourly-6">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data small-text"></p>
+          </div>
+          <div class="hourly-data-container" id="hourly-7">
+            <img src="" alt="icon-img" class="hourly-image" />
+            <p class="hourly-temp-data"></p>
+            <p class="hourly-time-data small-text"></p>
+          </div>
+          <div class="hourly-data-container" id="hourly-8">
             <img src="" alt="icon-img" class="hourly-image" />
             <p class="hourly-temp-data"></p>
             <p class="hourly-time-data small-text"></p>
           </div>
 
-          <button class="right-button">></button>
+          <button class="right-button">
+            <i class="fa fa-arrow-right"></i>
+          </button>
         </div>
-
       </div>
 
       <div class="weekly-forecast-container">
         <div class="weekly-forecast-data-container">
           <p class="weekly-forecast-day"></p>
-          <p class="weekly-forecast-min-temp"></p>
-          <p class="weekly-forecast-max-temp"></p>
-          <p class="weekly-forecast-condition"></p>
-          <img src="" alt="icon-img" class="weekly-forecast-image" />
+          <div class="min-forecast-container">
+            <p class="small-text no no-margin">min.</p>
+            <p class="weekly-forecast-min-temp no-margin"></p>
+          </div>
+          <div class="max-forecast-container">
+            <p class="small-text no-margin">max.</p>
+            <p class="weekly-forecast-max-temp no-margin"></p>
+          </div>
+          <div class="weekly-image-container">
+            <img src="" alt="icon-img" class="weekly-forecast-image" />
+            <p class="weekly-forecast-condition small-text no-margin"></p>
+          </div>
         </div>
         <div class="weekly-forecast-data-container">
           <p class="weekly-forecast-day"></p>
-          <p class="weekly-forecast-min-temp"></p>
-          <p class="weekly-forecast-max-temp"></p>
-          <p class="weekly-forecast-condition"></p>
-          <img src="" alt="icon-img" class="weekly-forecast-image" />
+          <div class="min-forecast-container">
+            <p class="small-text no-margin">min.</p>
+            <p class="weekly-forecast-min-temp no-margin"></p>
+          </div>
+          <div class="max-forecast-container">
+            <p class="small-text no-margin">max.</p>
+            <p class="weekly-forecast-max-temp no-margin"></p>
+          </div>
+          <div class="weekly-image-container">
+            <img src="" alt="icon-img" class="weekly-forecast-image" />
+            <p class="weekly-forecast-condition small-text no-margin"></p>
+          </div>
         </div>
         <div class="weekly-forecast-data-container">
           <p class="weekly-forecast-day"></p>
-<!--          add min/max containers and text-->
-          <p class="weekly-forecast-min-temp"></p>
-          <p class="weekly-forecast-max-temp"></p>
-          <p class="weekly-forecast-condition"></p>
-          <img src="" alt="icon-img" class="weekly-forecast-image" />
+          <!--          add date  e.g 24 july-->
+          <div class="min-forecast-container">
+            <p class="small-text no-margin">min.</p>
+            <p class="weekly-forecast-min-temp no-margin"></p>
+          </div>
+          <div class="max-forecast-container">
+            <p class="small-text no-margin">max.</p>
+            <p class="weekly-forecast-max-temp no-margin"></p>
+          </div>
+
+          <div class="weekly-image-container">
+            <img src="" alt="icon-img" class="weekly-forecast-image" />
+            <p class="weekly-forecast-condition small-text no-margin"></p>
+          </div>
         </div>
       </div>
     </div>
